@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Talaan</title>
+<meta name="description" content="Talaan — BIR-ready books. Sign in with the username your firm gave you.">
+<meta name="theme-color" content="#0F2440">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Talaan">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='4' y='4' width='56' height='56' rx='12' fill='%23F4F7FA'/%3E%3Cpath d='M19 20h26M32 20v22' stroke='%230F2440' stroke-width='6' stroke-linecap='round' fill='none'/%3E%3Cpath d='M19 49h26' stroke='%230B8077' stroke-width='3.5' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+</head>
+<body style="margin:0;font:15px system-ui,sans-serif;color:#132033;background:#EBF0F5">
+<p id="tl" style="padding:24px;margin:0">Opening Talaan…</p>
+<noscript><p style="padding:0 24px">Talaan needs JavaScript. Please turn it on and reload.</p></noscript>
+<script>
+/* Talaan's own page. Loads Talaan from its Google Apps Script web app without the browser's Google sign-in,
+   so it opens the same whatever Google accounts the browser has. Only this loader lives here: Code.gs and the
+   data stay in Google Apps Script and Google Sheets. */
+window.__TALAAN_EXEC = "https://script.google.com/macros/s/AKfycbx1K5ZiUujfI8pZBG5h6LrVUyBnfTgeIUsAExeC4D_8RzEaw5ceAoO1Eu9gc0S3rgSOFg/exec";
+(function go(n) {
+  fetch(window.__TALAAN_EXEC, { method: "POST", credentials: "omit", headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify({ fn: "apiAuthPage", args: [] }) })
+    .then(function (r) { return r.json(); })
+    .then(function (o) { if (!o || !o.ok || !o.v) throw new Error((o && o.e) || "no page"); document.open(); document.write(o.v); document.close(); })
+    .catch(function (e) { if (n < 2) return setTimeout(function () { go(n + 1); }, 1500 * (n + 1)); document.getElementById("tl").innerHTML = "Talaan could not open right now. Check the connection and <a href=\"javascript:location.reload()\">try again</a>."; });
+})(0);
+</script>
+</body>
+</html>
